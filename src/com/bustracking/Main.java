@@ -5,6 +5,7 @@ public class Main {
     {
         String password;
         String mobile;
+        String emailid;
         Scanner s=new Scanner(System.in);
         Newuserintrf name=new Newuserimpl();
         System.out.println();
@@ -12,23 +13,43 @@ public class Main {
         System.out.println();
         do{
             System.out.println("""
-                    Press 0 if you are new user
-                    Press 1 if you wanna update the existing user password
-                    Press 2 to delete existing user
-                    Press 3 if you are existing user
-                    Press 9 to exit the application
+                    Press
+                    *********
+                    
+                    0 -> New user
+                    1 -> Login
+                    2 -> Delete existing user
+                    3 -> Update the user password
+                    9 -> Exit the application
                     """);
             System.out.print("Enter a choice : ");
             int ch=s.nextInt();
             switch(ch) {
                 case 0:
+                    String x;
                     System.out.println("*******************");
                     System.out.println();
                     Newuser now = new Newuser();
-                    System.out.println("Enter mobile : ");
-                    mobile = s.next();
-                    System.out.println("Enter emailid you wanna register : ");
-                    String emailid = s.next();
+                    do {
+                        System.out.println("Enter mobile : ");
+                        mobile = s.next();
+                        x = name.createuser(mobile);
+                        if(x.equals("true")) {
+                            System.out.println();
+                            System.out.println("<~~~~~~~~~* Mobile number already exists * Please enter another mobile *~~~~~~~~~>");
+                            System.out.println();
+                        }
+                    }while(x.equals("true"));
+                    do {
+                        System.out.println("Enter emailid you wanna register : ");
+                        emailid = s.next();
+                        x=name.validcreateuser(emailid);
+                        if(x.equals("true")) {
+                            System.out.println();
+                            System.out.println("<~~~~~~~~~* Emailid already exists * Please enter another emailid *~~~~~~~~~>");
+                            System.out.println();
+                        }
+                    }while(x.equals("true"));
                     System.out.println("Enter your password : ");
                     password = s.next();
                     now.setMobile(mobile);
@@ -36,10 +57,10 @@ public class Main {
                     now.setPassword(password);
                     name.createuser(now);
                     break;
-                case 1:
+                case 3:
                     System.out.println("*******************");
                     System.out.println();
-                    String z="";
+                    String z;
                     do {
                         System.out.println("Enter your mobile : ");
                         mobile = s.next();
@@ -64,7 +85,7 @@ public class Main {
                     String currentpassword=s.next();
                     name.deleteuser(mobile,currentpassword);
                     break;
-                case 3:
+                case 1:
                     System.out.println("*******************");
                     System.out.println();
                     String loginmail;
@@ -74,8 +95,11 @@ public class Main {
                         System.out.println("Enter your login emailid : ");
                         loginmail = s.next();
                         correctmail = mail.correctemailid(loginmail);
-                        if(correctmail.equals("false"))
-                         System.out.println("<~~~~~~~~~* ****USER MISMATCH (Enter a valid emailid)**** *~~~~~~~~~>");
+                        if(correctmail.equals("false")) {
+                            System.out.println();
+                            System.out.println("<~~~~~~~~~* ****USER MISMATCH (Enter a valid emailid)**** *~~~~~~~~~>");
+                            System.out.println();
+                        }
                     } while (correctmail.equals("false"));
                     String loginpassword = mail.userlogin(loginmail);
                     String passwordlogin;
@@ -83,7 +107,11 @@ public class Main {
                         System.out.println("Enter your login password : ");
                         passwordlogin = s.next();
                         if(!passwordlogin.equals(loginpassword))
-                         System.out.println("<~~~~~~~~~* ****LOGIN INVALID (Your password is incorrect)**** *~~~~~~~~~>");
+                        {
+                            System.out.println();
+                            System.out.println("<~~~~~~~~~* ****LOGIN INVALID (Your password is incorrect)**** *~~~~~~~~~>");
+                            System.out.println();
+                        }
                     }while(!passwordlogin.equals(loginpassword));
                     System.out.println();
                     System.out.println("<~~~~~~~~~* !!!!Login Successfull!!!!! *~~~~~~~~~>");

@@ -5,6 +5,45 @@ import java.sql.*;
 public class Newuserimpl implements Newuserintrf
 {
 Connection con;
+
+    @Override
+    public String createuser(String mobile) {
+        String valid="false";
+        con=Mysqlconnection.createDBconnection();
+        String query="select mobile from user where mobile=?";
+        try {
+            PreparedStatement pstm= con.prepareStatement(query);
+            pstm.setString(1,mobile);
+            ResultSet result= pstm.executeQuery();
+            while(result.next())
+            {
+                valid="true";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return valid;
+    }
+
+    @Override
+    public String validcreateuser(String emailid) {
+        String valid="false";
+        con=Mysqlconnection.createDBconnection();
+        String query="select emailid from user where emailid=?";
+        try {
+            PreparedStatement pstm= con.prepareStatement(query);
+            pstm.setString(1,emailid);
+            ResultSet result= pstm.executeQuery();
+            while(result.next())
+            {
+                valid="true";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return valid;
+    }
+
     @Override
     public void createuser(Newuser now) {
         con=Mysqlconnection.createDBconnection();
@@ -21,11 +60,7 @@ Connection con;
                 System.out.println();
             }
         }
-        catch (SQLIntegrityConstraintViolationException e) {
-            System.out.println();
-            System.out.println("<~~~~~~~~~* Mobile number already exists * Please enter correct mobile *~~~~~~~~~>");
-            System.out.println();
-        }catch (Exception e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
     }

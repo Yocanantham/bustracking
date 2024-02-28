@@ -3,11 +3,13 @@ package com.bustracking;
 public interface Newuserintrf
 {
      //create user
-    public void createuser(Newuser now);
+     String createuser(String mobile);
+    String validcreateuser(String emailid);
+    void createuser(Newuser now);
     //update password
-    public String updatepassword(String mobile);
-    public void updatepassword(String mobile,String newpassword);
+    String updatepassword(String mobile);
+    void updatepassword(String mobile, String newpassword);
 //delete password
-    public void deleteuser(String mobile,String currentpassword);
+void deleteuser(String mobile, String currentpassword);
 
 }

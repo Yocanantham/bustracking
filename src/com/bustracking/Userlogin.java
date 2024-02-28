@@ -3,7 +3,7 @@ package com.bustracking;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLOutput;
+
 
 public class Userlogin
 {
@@ -31,7 +31,7 @@ public class Userlogin
     {
           con=Mysqlconnection.createDBconnection();
           String query="select password from user where emailid=?";
-          String loginpassword = "";
+          String loginpassword="";
           try{
               PreparedStatement pstm=con.prepareStatement(query);
               pstm.setString(1,loginmail);
