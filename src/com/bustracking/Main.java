@@ -6,6 +6,7 @@ public class Main {
         String password;
         String mobile;
         String emailid;
+        int ch=0;
         Scanner s=new Scanner(System.in);
         Newuserintrf name=new Newuserimpl();
         System.out.println();
@@ -22,8 +23,19 @@ public class Main {
                     3 -> Update the user password
                     9 -> Exit the application
                     """);
-            System.out.print("Enter a choice : ");
-            int ch=s.nextInt();
+            boolean validinput=false;
+            while(!validinput) {
+                try {
+                    System.out.print("Enter a choice : ");
+                    ch = s.nextInt();
+                    validinput = true;
+                } catch (InputMismatchException e) {
+                    System.out.println();
+                    System.out.println("<~~~~~~~~~* Invalid input. Please enter an number *~~~~~~~~~>");
+                    System.out.println();
+                    s.nextLine();
+                }
+            }
             switch(ch) {
                 case 0:
                     String x;
@@ -117,7 +129,7 @@ public class Main {
                     System.out.println("<~~~~~~~~~* !!!!Login Successfull!!!!! *~~~~~~~~~>");
                     System.out.println();
                         Busdetails bus = new Busdetails();
-                        int n;
+                        int n=0;
                         do{
                         System.out.println("Enter the bus stop name : ");
                         String b = s.next();
@@ -126,8 +138,18 @@ public class Main {
                             System.out.println("*** Enter any other number to continue search ***");
                             System.out.println("*** Enter 9 to log out ***");
                             System.out.println();
-                            System.out.print("Enter your choice : ");
-                            n=s.nextInt();
+                            boolean validinputhere=false;
+                            while(!validinputhere)
+                                try {
+                                    System.out.print("Enter your choice : ");
+                                    n=s.nextInt();
+                                    validinputhere=true;
+                                }catch(InputMismatchException e){
+                                    System.out.println();
+                                    System.out.println("<~~~~~~~~~* Invalid input. Please enter an number *~~~~~~~~~>");
+                                    System.out.println();
+                                    s.nextLine();
+                                }
                             System.out.println("*******************");
                             System.out.println();
                         }
