@@ -4,19 +4,56 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+
 public class Admin {
     Connection con;
+    public String correctadminmailid(String adminid)
+    {
+        String correct = "false";
+        con=Mysqlconnection.createDBconnection();
+        String query="select adminid from admin where adminid=?";
+        try{
+            PreparedStatement pstm=con.prepareStatement(query);
+            pstm.setString(1,adminid);
+            ResultSet result= pstm.executeQuery();
+            if (result.next())
+            {
+                correct = "true";
+            }
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return correct;
+    }
+    public String adminlogin(String adminid)
+    {
+        con=Mysqlconnection.createDBconnection();
+        String query="select adminpassword from admin where adminid=?";
+        String loginpassword="";
+        try{
+            PreparedStatement pstm=con.prepareStatement(query);
+            pstm.setString(1,adminid);
+            ResultSet result= pstm.executeQuery();
+            while(result.next())
+            {
+                loginpassword=result.getString(1);
+            }
 
-    public void admin(String adminid, String adminpassword) {
-        do{
-            con = Mysqlconnection.createDBconnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return loginpassword;
+    }
+    public void admin() {
+        con = Mysqlconnection.createDBconnection();
             String now="select COUNT(mobile) from user";
             try {
                 PreparedStatement pstm= con.prepareStatement(now);
                 ResultSet result= pstm.executeQuery();
                while(result.next())
                 {
+                    System.out.println();
                     System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     System.out.println("Total no registered users till now : " + result.getInt(1));
                     System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -41,10 +78,6 @@ public class Admin {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }while(!adminid.equals("admin123") || !adminpassword.equals("ADMIN123"));
-//        else
-//        {
-//            System.out.println("Invalid Admin");
-//        }
+            System.out.println();
     }
 }

@@ -13,8 +13,10 @@ public class Main {
         System.out.println("<~~~~~~~~~* Welcome to Bustracking System!!!! *~~~~~~~~~>");
         System.out.println();
         do {
-            System.out.println("Press 0 if you are admin \n" +
-                               "Press 1 if you are a user");
+            System.out.println("""
+                    Press 0 if you are admin\s
+                    Press 1 if you are a user
+                    Press 9 to exit the application""");
             System.out.println();
             int usertype = 0;
             boolean validinputadmin = false;
@@ -32,12 +34,38 @@ public class Main {
             }
             switch (usertype) {
                 case 0:
+                    System.out.println();
                     Admin admin = new Admin();
-                    System.out.println("Enter your admin id : ");
-                    String adminid = s.next();
-                    System.out.println("Enter your admin password : ");
-                    String adminpassword = s.next();
-                    admin.admin(adminid, adminpassword);
+                    String adminid;
+                    String loginpassword;
+                    String correctmail;
+                    String passwordlogin;
+                    do {
+                        System.out.println("Enter your admin id : ");
+                        adminid = s.next();
+                        correctmail = admin.correctadminmailid(adminid);
+                        if (correctmail.equals("false")) {
+                            System.out.println();
+                            System.out.println("<~~~~~~~~~* ****ADMIN MISMATCH (Enter a valid adminid)**** *~~~~~~~~~>");
+                            System.out.println();
+                        }
+                    } while (correctmail.equals("false"));
+                    loginpassword = admin.adminlogin(adminid);
+
+                    do {
+                        System.out.println("Enter your admin password : ");
+                        passwordlogin = s.next();
+                        if (!passwordlogin.equals(loginpassword)) {
+                            System.out.println();
+                            System.out.println("<~~~~~~~~~* ****LOGIN INVALID (Your admin password is incorrect)**** *~~~~~~~~~>");
+                            System.out.println();
+                        }
+                    } while (!passwordlogin.equals(loginpassword));
+                    System.out.println();
+                    System.out.println("<~~~~~~~~~* !!!! Admin Login Successfull!!!!! *~~~~~~~~~>");
+                    System.out.println();
+                    admin.admin();
+                    break;
                 case 1:
                     do {
                         System.out.println();
@@ -129,7 +157,6 @@ public class Main {
                                 System.out.println();
                                 String loginmail;
                                 Userlogin mail = new Userlogin();
-                                String correctmail;
                                 do {
                                     System.out.println("Enter your login emailid : ");
                                     loginmail = s.next();
@@ -140,8 +167,7 @@ public class Main {
                                         System.out.println();
                                     }
                                 } while (correctmail.equals("false"));
-                                String loginpassword = mail.userlogin(loginmail);
-                                String passwordlogin;
+                                loginpassword = mail.userlogin(loginmail);
                                 do {
                                     System.out.println("Enter your login password : ");
                                     passwordlogin = s.next();
@@ -197,9 +223,14 @@ public class Main {
                         }
                     }
                     while (true);
+                case 9:
+                    System.out.println();
+                    System.out.println("<~~~~~~~~~* !!!! Thank you !!!!! *~~~~~~~~~>");
+                    System.exit(0);
+                    break;
                 default:
                     System.out.println();
-                    System.out.println("<**** Enter a valid input to continue(0 or 1) ****>");
+                    System.out.println("<**** Enter a valid input to continue(0 or 1 or 9) ****>");
                     System.out.println();
 
             }
