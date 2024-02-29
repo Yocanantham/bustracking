@@ -32,6 +32,7 @@ public class Main {
             }
             switch (usertype) {
                 case 0:
+                    System.out.println();
                     Admin admin = new Admin();
                     System.out.println("Enter your admin id : ");
                     String adminid = s.next();
