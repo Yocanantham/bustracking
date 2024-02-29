@@ -3,6 +3,7 @@ import java.util.*;
 public class Main {
     public static void main(String[]args)
     {
+        int n=0 ;
         String password;
         String mobile;
         String emailid;
@@ -65,6 +66,34 @@ public class Main {
                     System.out.println("<~~~~~~~~~* !!!! Admin Login Successfull!!!!! *~~~~~~~~~>");
                     System.out.println();
                     admin.admin();
+                    System.out.println();
+                    int logout=0;
+                    do{
+                    System.out.println();
+                    System.out.println("*** Enter 9 to log out ***");
+                        boolean validloginput = false;
+                        while (!validloginput) {
+                            try {
+                                System.out.print("Enter a choice : ");
+                                logout=s.nextInt();
+                                validloginput = true;
+                            } catch (InputMismatchException e) {
+                                System.out.println();
+                                System.out.println("<~~~~~~~~~* Invalid input. Please enter an number *~~~~~~~~~>");
+                                System.out.println();
+                                s.nextLine();
+                            }
+                        }
+                    if (logout == 9) {
+                        System.out.println();
+                        System.out.println("<~~~~~~~~~* !!!!Logout Successfull!!!!! *~~~~~~~~~>");
+                        System.out.println();
+                    }
+                    else{
+                        System.out.println();
+                        System.out.println("**** Invalid number ****");
+                    }
+                    }while(logout!=9);
                     break;
                 case 1:
                     do {
@@ -181,10 +210,11 @@ public class Main {
                                 System.out.println("<~~~~~~~~~* !!!!Login Successfull!!!!! *~~~~~~~~~>");
                                 System.out.println();
                                 Busdetails bus = new Busdetails();
-                                int n = 0;
+
                                 do {
+                                    s.nextLine();
                                     System.out.println("Enter the bus stop name : ");
-                                    String b = s.next();
+                                    String b = s.nextLine();
                                     System.out.println();
                                     bus.getbusdetails(b);
                                     System.out.println("*** Enter any other number to continue search ***");
@@ -197,10 +227,11 @@ public class Main {
                                             n = s.nextInt();
                                             validinputhere = true;
                                         } catch (InputMismatchException e) {
+                                            s.nextLine();
                                             System.out.println();
                                             System.out.println("<~~~~~~~~~* Invalid input. Please enter an number *~~~~~~~~~>");
                                             System.out.println();
-                                            s.nextLine();
+
                                         }
                                     System.out.println("*******************");
                                     System.out.println();
